@@ -15,8 +15,10 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$app->group(['prefix'=>'api', 'middleware' => 'BasicAuth'], function($app) {
+$app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 
-  $app->post('user',  ['uses' => 'UserController@createUser']);
+  	$app->post('user',  ['uses' => 'ClientController@createClient']);
+  	
+  	$app->post('client',  ['uses' => 'ClientController@clientExists']);
 
 });

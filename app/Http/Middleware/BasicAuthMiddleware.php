@@ -18,7 +18,7 @@ class BasicAuthMiddleware
     public function handle($request, Closure $next) {
         
         $shCenter = DB::table('oc_setting')->where('code', $request->__get('pass'))->first();
-    
+        dd($request);
         if(!isset($shCenter)) {
             $headers = array('WWW-Authenticate' => 'Basic');
             return response('unauthorized', 401, $headers);

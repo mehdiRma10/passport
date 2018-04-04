@@ -59,17 +59,17 @@ $app->singleton(
 |
 */
 
-$app->routeMiddleware([
-    'BasicAuth' => 'App\Http\Middleware\BasicAuthMiddleware',
-]);
+//$app->routeMiddleware([
+//    'BasicAuth' => 'App\Http\Middleware\BasicAuthMiddleware',
+//]);
 
 // $app->middleware([
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ $app->routeMiddleware([
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
