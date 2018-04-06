@@ -34,16 +34,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['auth']->viaRequest('api', function ($request) {
             
             $token = $request->header('api-token');
-            $tokenIsValid = DB::table('shoooping_tokens')->select(['id'])->where('keys', $token)->first();
+            $tokenIsValid = DB::Connection('shoooping')->table('shoooping_tokens')->select(['id'])->where('keys', $token)->first();
             
             if (!empty($token) AND isset($tokenIsValid)) {
                 return new User($tokenIsValid->id);
             }
 
             return null;
-            //if ($request->input('api_token')) {
-            //    return User::where('api_token', $request->input('api_token'))->first();
-            //}
         });
     }
 }
