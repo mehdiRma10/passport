@@ -19,7 +19,8 @@ class ClientController extends Controller
         'customer.fax' => 'nullable', 
         'customer.password' => 'required|string|max:40', 
         'customer.salt' => 'nullable|string', 
-        'customer.address_id' => 'required|string|max:40',  
+        'customer.address_id' => 'required|integer',
+        'customer.ip' => "nullable|ip",  
         'customer.status' => 'required|boolean', 
         'customer.approved' => 'required|boolean',  
         'customer.date_added' => 'required|date' 
