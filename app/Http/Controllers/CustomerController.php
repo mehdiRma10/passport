@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,16 +11,22 @@ class CustomerController extends Controller
 {
     public function createCustomer(Request $request)
     {   
-        $this->validateCustomer($request);
-        $this->validateAddress($request);
+        $storePrefix = 1000000000 + $request->user()->storeId;
+        $newCustomer = new Customer($request->get('customer'), $storePrefix);
+        $newCustomer->validateAll();
         
+        if (!$newCustomer->add()) {
+        	return response()->json(['message' => 'duplicate !!!'], 400);
+        }
+
+        $this->validateAddress($request);
+
         return response()->json(['message' => 'yeaay']);
     }
 
     public function customerExists(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
-        dd($request->user());
         $idClient = DB::table('oc_customer')
             ->select(['customer_id'])
             ->where('email', $request->get('email'))
@@ -32,25 +39,6 @@ class CustomerController extends Controller
         }
 
         return $response;
-    }
-
-    private function validateCustomer(Request $request)
-    {
-    	$this->validate($request, ['customer.customer_id' => 'required|integer', 
-        'customer.customer_group_id' => 'required|integer',  
-        'customer.firstname' => 'required|max:32', 
-        'customer.lastname' => 'required|max:32', 
-        'customer.email' => 'required|email|max:96', 
-        'customer.telephone' => 'required|string|max:32', 
-        'customer.fax' => 'nullable|string|max:32', 
-        'customer.password' => 'required|string|max:40', 
-        'customer.salt' => 'nullable|string', 
-        'customer.address_id' => 'required|integer',
-        'customer.ip' => "nullable|ip",  
-        'customer.status' => 'required|boolean', 
-        'customer.approved' => 'required|boolean',  
-        'customer.date_added' => 'required|date' 
-        ]);
     }
 
     private function validateAddress(Request $request)

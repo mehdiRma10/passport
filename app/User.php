@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
-    protected $storeId;
+    public $storeId;
 
     public function __construct($id){
         
