@@ -17,8 +17,8 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 
-  	$app->post('user',  ['uses' => 'ClientController@createClient']);
+  	$app->post('customer/create',  ['uses' => 'CustomerController@createCustomer']);
   	
-  	$app->post('client',  ['uses' => 'ClientController@clientExists']);
+  	$app->post('customer/status',  ['uses' => 'CustomerController@customerExists']);
 
 });
