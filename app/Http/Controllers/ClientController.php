@@ -9,22 +9,21 @@ use Illuminate\Support\Facades\DB;
 class ClientController extends Controller
 {
     public function createClient(Request $request)
-    {
-    	$this->validate($request, ['customer_id' => 'required|email', 
-    	'customer_group_id' => 'required|email',  
-    	'firstname' => 'required|email', 
-    	'lastname' => 'required|email', 
-    	'email' => 'required|email', 
-    	'telephone' => 'required|email', 
-    	'fax' => 'required|email', 
-    	'password' => 'required|email', 
-    	'salt' => 'required|email', 
-    	'address_id' => 'required|email',  
-    	'status' => 'required|email', 
-    	'approved' => 'required|email',  
-    	'date_added' => 'required|email' 
-    	]);
-        dd($request->user());
+    {   
+        $this->validate($request, ['customer.customer_id' => 'required|integer', 
+        'customer.customer_group_id' => 'required|integer',  
+        'customer.firstname' => 'required|max:32', 
+        'customer.lastname' => 'required|max:32', 
+        'customer.email' => 'required|email|max:96', 
+        'customer.telephone' => 'string|max:32', 
+        'customer.fax' => 'nullable', 
+        'customer.password' => 'required|string|max:40', 
+        'customer.salt' => 'nullable|string', 
+        'customer.address_id' => 'required|string|max:40',  
+        'customer.status' => 'required|boolean', 
+        'customer.approved' => 'required|boolean',  
+        'customer.date_added' => 'required|date' 
+        ]);
         return response()->json();
     }
 
