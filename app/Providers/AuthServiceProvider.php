@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
             $tokenIsValid = DB::table('shoooping_tokens')->select(['id'])->where('keys', $token)->first();
             
             if (!empty($token) AND isset($tokenIsValid)) {
-                return new User();
+                return new User($tokenIsValid->id);
             }
 
             return null;

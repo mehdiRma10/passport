@@ -27,4 +27,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    protected $storeId;
+
+    public function __construct($id){
+        
+        $this->storeId = $id;
+    }
 }

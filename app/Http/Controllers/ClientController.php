@@ -31,7 +31,7 @@ class ClientController extends Controller
     public function clientExists(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
-
+        dd($request->user());
         $idClient = DB::table('oc_customer')
             ->select(['customer_id'])
             ->where('email', $request->get('email'))
