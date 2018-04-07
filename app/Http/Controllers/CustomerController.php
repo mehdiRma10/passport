@@ -6,6 +6,7 @@ use App\Customer;
 use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class CustomerController extends Controller
 {
@@ -27,6 +28,7 @@ class CustomerController extends Controller
         }
 
         $newCustomer->updateAddressId($newAddress->address_id);
+        $this->sendMailRegistration($newCustomer->toArray());
 
         return response()->json(['message' => 'good'], 201);
     }
@@ -46,5 +48,28 @@ class CustomerController extends Controller
         }
 
         return $response;
+    }
+
+    private function sendMailRegistration($receiverInfos)
+    {
+    	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    	
+    	try {
+    	    //Recipients
+    	    $mail->setFrom('equipe@passeport.shopping', 'passeport shopping');
+    	    $mail->addAddress($receiverInfos['email'], $receiverInfos['firstname'] .' ' .$receiverInfos['lastname']);     // Add a recipient
+    	    $mail->addReplyTo('equipe@passeport.shopping', 'Information');
+
+    	    //Content
+    	    $mail->isHTML(true);                                  // Set email format to HTML
+    	    $mail->Subject = 'Here is the subject';
+    	    $mail->Body    = 'Successful registration!!  his is the HTML message body <b>in bold!</b>';
+
+    	    $mail->send();
+    	    
+    	    return true;
+    	} catch (Exception $e) {
+    	    echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+    	}
     }
 }
