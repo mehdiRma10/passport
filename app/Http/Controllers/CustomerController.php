@@ -28,7 +28,7 @@ class CustomerController extends Controller
 
         $newCustomer->updateAddressId($newAddress->address_id);
 
-        return response()->json(['message' => 'good']);
+        return response()->json(['message' => 'good'], 201);
     }
 
     public function customerExists(Request $request)
