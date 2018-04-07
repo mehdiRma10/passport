@@ -25,9 +25,9 @@ class Customer extends Model
     public $safe;
     public $token;
     public $date_added;
+    public $date_modified;
 
     private $rules = [
-        'customer_id'       => 'required|integer',
         'customer_group_id' => 'required|integer',
         'firstname'         => 'required|max:32',
         'lastname'          => 'required|max:32',
@@ -36,17 +36,16 @@ class Customer extends Model
         'fax'               => 'nullable|string|max:32',
         'password'          => 'required|string|max:40',
         'salt'              => 'nullable|string',
-        'address_id'        => 'required|integer',
         'ip'                => "nullable|ip",
         'status'            => 'required|boolean',
         'approved'          => 'required|boolean',
         'safe'              => 'required|boolean',
         'date_added'        => 'required|date',
+        'date_modified'     => 'required|date'
     ];
 
-    public function __construct($data, $storePrefix)
+    public function __construct($data)
     {
-        $this->customer_id       = $storePrefix + $data['customer_id'];
         $this->customer_group_id = $data['customer_group_id'];
         $this->firstname         = $data['firstname'];
         $this->lastname          = $data['lastname'];
@@ -55,13 +54,14 @@ class Customer extends Model
         $this->fax               = $data['fax'];
         $this->password          = $data['password'];
         $this->salt              = $data['salt'];
-        $this->address_id        = $storePrefix + $data['address_id'];
+        $this->address_id        = 0;
         $this->ip                = $data['ip'];
         $this->status            = $data['status'];
         $this->approved          = $data['approved'];
         $this->safe              = $data['safe'];
         $this->token             = str_random(32);
         $this->date_added        = $data['date_added'];
+        $this->date_modified = $data['date_modified'];
     }
 
     public function validateAll()
@@ -78,7 +78,6 @@ class Customer extends Model
     public function toArray()
     {
         return [
-            'customer_id'       => $this->customer_id,
             'customer_group_id' => $this->customer_group_id,
             'firstname'         => $this->firstname,
             'lastname'          => $this->lastname,
@@ -93,7 +92,8 @@ class Customer extends Model
             'approved'          => $this->approved,
             'safe'              => $this->safe,
             'token'             => $this->token,
-            'date_added'        => $this->date_added
+            'date_added'        => $this->date_added,
+            'date_modified'        => $this->date_modified
         ];
     }
 
@@ -101,10 +101,10 @@ class Customer extends Model
     {
         try
         {
-            DB::table('oc_customer')->insert([
-                'customer_id'       => $this->customer_id,
+            $this->customer_id = DB::table('oc_customer')->insertGetId([
                 'customer_group_id' => $this->customer_group_id,
                 'firstname'         => $this->firstname,
+                'lastname'          => $this->lastname,
                 'lastname'          => $this->lastname,
                 'email'             => $this->email,
                 'telephone'         => $this->telephone,
@@ -125,5 +125,15 @@ class Customer extends Model
         } catch(QueryException $e) {
             return false;
         }
+    }
+
+
+    public function updateAddressId($id)
+    {
+        $this->address_id = $id;
+
+        DB::table('oc_customer')
+            ->where('customer_id', $this->customer_id)
+            ->update(['address_id' => $this->address_id]);
     }
 }

@@ -2,26 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Customer;
+use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
     public function createCustomer(Request $request)
-    {   
-        $storePrefix = 1000000000 + $request->user()->storeId;
-        $newCustomer = new Customer($request->get('customer'), $storePrefix);
+    {
+        $newCustomer = new Customer($request->get('customer'));
         $newCustomer->validateAll();
-        
+
         if (!$newCustomer->add()) {
-        	return response()->json(['message' => 'duplicate !!!'], 400);
+            return response()->json(['message' => 'duplicate customer !!!'], 400);
         }
 
-        $this->validateAddress($request);
+        $newAddress = new Address($request->get('address'));
+        $newAddress->setCustomerId($newCustomer->customer_id);
+        $newAddress->validateAll();
 
-        return response()->json(['message' => 'yeaay']);
+        if (!$newAddress->add()) {
+            return response()->json(['message' => 'duplicate address !!!'], 400);
+        }
+
+        $newCustomer->updateAddressId($newAddress->address_id);
+
+        return response()->json(['message' => 'good']);
     }
 
     public function customerExists(Request $request)
@@ -39,22 +46,5 @@ class CustomerController extends Controller
         }
 
         return $response;
-    }
-
-    private function validateAddress(Request $request)
-    {
-    	$this->validate($request, ['address.address_id' => 'required|integer',  
-        'address.customer_id' => 'required|integer',
-        'address.firstname' => 'required|max:32', 
-        'address.lastname' => 'required|max:32', 
-        'address.company' => 'nullable|string', 
-        'address.address_1' => 'required|string|max:128', 
-        'address.address_2' => 'nullable|string|max:128', 
-        'address.city' => 'required|string|max:128', 
-        'address.postcode' => 'required|string|max:10', 
-        'address.country_id' => "required|integer",  
-        'address.zone_id' => 'required|integer', 
-        'address.custom_field' => 'nullable|string|max:256'
-        ]);
     }
 }
