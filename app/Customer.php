@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class Customer extends Model
@@ -41,7 +41,7 @@ class Customer extends Model
         'approved'          => 'required|boolean',
         'safe'              => 'required|boolean',
         'date_added'        => 'required|date',
-        'date_modified'     => 'required|date'
+        'date_modified'     => 'required|date',
     ];
 
     public function __construct($data)
@@ -61,7 +61,7 @@ class Customer extends Model
         $this->safe              = $data['safe'];
         $this->token             = str_random(32);
         $this->date_added        = $data['date_added'];
-        $this->date_modified = $data['date_modified'];
+        $this->date_modified     = $data['date_modified'];
     }
 
     public function validateAll()
@@ -93,7 +93,7 @@ class Customer extends Model
             'safe'              => $this->safe,
             'token'             => $this->token,
             'date_added'        => $this->date_added,
-            'date_modified'        => $this->date_modified
+            'date_modified'     => $this->date_modified,
         ];
     }
 
@@ -117,16 +117,15 @@ class Customer extends Model
                 'approved'          => $this->approved,
                 'safe'              => $this->safe,
                 'token'             => $this->token,
-                'date_added'        => $this->date_added
+                'date_added'        => $this->date_added,
             ]);
 
             return true;
 
-        } catch(QueryException $e) {
+        } catch (QueryException $e) {
             return false;
         }
     }
-
 
     public function updateAddressId($id)
     {
