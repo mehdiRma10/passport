@@ -25,7 +25,6 @@ class Customer extends Model
     public $safe;
     public $token;
     public $date_added;
-    public $date_modified;
 
     private $rules = [
         'customer_group_id' => 'required|integer',
@@ -40,8 +39,7 @@ class Customer extends Model
         'status'            => 'required|boolean',
         'approved'          => 'required|boolean',
         'safe'              => 'required|boolean',
-        'date_added'        => 'required|date',
-        'date_modified'     => 'required|date',
+        'date_added'        => 'required|date'
     ];
 
     public function __construct($data)
@@ -61,7 +59,6 @@ class Customer extends Model
         $this->safe              = $data['safe'];
         $this->token             = str_random(32);
         $this->date_added        = $data['date_added'];
-        $this->date_modified     = $data['date_modified'];
     }
 
     public function validateAll()
@@ -92,8 +89,7 @@ class Customer extends Model
             'approved'          => $this->approved,
             'safe'              => $this->safe,
             'token'             => $this->token,
-            'date_added'        => $this->date_added,
-            'date_modified'     => $this->date_modified,
+            'date_added'        => $this->date_added
         ];
     }
 
@@ -117,7 +113,7 @@ class Customer extends Model
                 'approved'          => $this->approved,
                 'safe'              => $this->safe,
                 'token'             => $this->token,
-                'date_added'        => $this->date_added,
+                'date_added'        => $this->date_added
             ]);
 
             return true;
