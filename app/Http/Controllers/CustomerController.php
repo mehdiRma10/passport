@@ -50,6 +50,13 @@ class CustomerController extends Controller
         return $response;
     }
 
+    public function getInfos(Request $request)
+    {
+        $customer = Customer::load($request->get('customer_id'));
+
+        return response()->json([$customer->toArray()], 200);
+    }
+
     private function sendMailRegistration($receiverInfos)
     {
     	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions

@@ -22,3 +22,9 @@ $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
   	$app->post('customer/status',  ['uses' => 'CustomerController@customerExists']);
 
 });
+
+$app->group(['prefix'=>'api', 'middleware' => 'BasicAuth'], function($app) {
+
+  	$app->get('customer/infos',  ['uses' => 'CustomerController@getInfos']);
+
+});

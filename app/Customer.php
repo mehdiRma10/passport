@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
-class Customer extends Model
+class Customer
 {
     public $customer_id;
     public $customer_group_id;
@@ -52,13 +51,37 @@ class Customer extends Model
         $this->fax               = $data['fax'];
         $this->password          = $data['password'];
         $this->salt              = $data['salt'];
-        $this->address_id        = 0;
         $this->ip                = $data['ip'];
         $this->status            = $data['status'];
         $this->approved          = $data['approved'];
         $this->safe              = $data['safe'];
-        $this->token             = str_random(32);
         $this->date_added        = $data['date_added'];
+        
+        if (isset($data['address_id'], $data['token'], $data['customer_id'])) {
+            $this->customer_id   = $data['customer_id'];
+            $this->address_id    = $data['address_id'];
+            $this->token         = $data['token'];
+        } else {
+            $this->address_id    = 0;
+            $this->token         = str_random(32);
+        }
+    }
+
+    static public function load($id)
+    {
+        
+        try {
+            $customer = DB::table('oc_customer')->where('customer_id', $id)->first();
+            
+        } catch (QueryException $e) {
+            return false;
+        }
+        
+        if (empty($customer)) {
+            return false;
+        }
+
+        return new Customer((array) $customer);
     }
 
     public function validateAll()
