@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
-class Address extends Model
+class Address
 {
     public $address_id;
     public $customer_id;
@@ -83,7 +82,7 @@ class Address extends Model
         ];
     }
 
-    public function add()
+    public function save()
     {
         try
         {

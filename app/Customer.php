@@ -116,7 +116,7 @@ class Customer
         ];
     }
 
-    public function add()
+    public function save()
     {
         try
         {

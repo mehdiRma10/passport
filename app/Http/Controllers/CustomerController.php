@@ -15,7 +15,7 @@ class CustomerController extends Controller
         $newCustomer = new Customer($request->get('customer'));
         $newCustomer->validateAll();
 
-        if (!$newCustomer->add()) {
+        if (!$newCustomer->save()) {
             return response()->json(['message' => 'duplicate customer !!!'], 400);
         }
 
@@ -23,7 +23,7 @@ class CustomerController extends Controller
         $newAddress->setCustomerId($newCustomer->customer_id);
         $newAddress->validateAll();
 
-        if (!$newAddress->add()) {
+        if (!$newAddress->save()) {
             return response()->json(['message' => 'duplicate address !!!'], 400);
         }
 
