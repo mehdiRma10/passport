@@ -27,6 +27,8 @@ class BasicAuthMiddleware
         }
 
         $request->attributes->add(['customer_id' => $customerID]);
+        $request->session()->put('customer_id', $customerID);
+        
         return $next($request);
     }
 

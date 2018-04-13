@@ -66,6 +66,20 @@ $app->singleton(
 // $app->middleware([
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
+// add session to request workaround
+$app->configure('session');
+$app->bind(Illuminate\Session\SessionManager::class, function ($app) {    
+
+    return $app->make('session');
+
+});
+$app->middleware([
+
+    'Illuminate\Session\Middleware\StartSession'
+
+]);
+$app->register(Illuminate\Session\SessionServiceProvider::class);
+
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
