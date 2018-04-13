@@ -21,16 +21,13 @@ $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
   	
   	$app->post('customer/status',  ['uses' => 'CustomerController@customerExists']);
 
+	$app->get('customer/has_session',  ['uses' => 'CustomerController@hasSession']);
+	$app->get('customer/get_session_data',  ['uses' => 'CustomerController@getCustomerFromSession']);
+
 });
 
 $app->group(['prefix'=>'api', 'middleware' => 'BasicAuth'], function($app) {
 
   	$app->get('customer/infos',  ['uses' => 'CustomerController@getInfos']);
 
-});
-
-$app->group(['middleware' => 'auth'], function($app) {
-
-	$app->get('customer/has_session',  ['uses' => 'CustomerController@hasSession']);
-	$app->get('customer/get_session_data',  ['uses' => 'CustomerController@getCustomerFromSession']);
 });
