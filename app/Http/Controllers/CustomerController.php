@@ -57,6 +57,30 @@ class CustomerController extends Controller
         return response()->json([$customer->toArray()], 200);
     }
 
+    public function hasSession(Request $request)
+    {
+        if ($request->session()->get('customer_id') !== null) {
+        	
+        	return response(1, 200);
+        } else {
+        	return response(0, 200);
+        }
+        
+    }
+
+    public function getCustomerFromSession(Request $request)
+    {
+        if ($request->session()->get('customer_id') !== null) {
+        	
+        	$customer = Customer::load($request->session()->get('customer_id'));
+
+        	return response()->json([$customer->toArray()], 200);
+        } else {
+        	return response('', 401);
+        }
+        
+    }
+
     private function sendMailRegistration($receiverInfos)
     {
     	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
