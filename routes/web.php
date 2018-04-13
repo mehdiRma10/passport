@@ -29,5 +29,8 @@ $app->group(['prefix'=>'api', 'middleware' => 'BasicAuth'], function($app) {
 
 });
 
-$app->get('customer/has_session',  ['uses' => 'CustomerController@hasSession']);
-$app->get('customer/get_session_data',  ['uses' => 'CustomerController@getCustomerFromSession']);
+$app->group(['middleware' => 'auth'], function($app) {
+
+	$app->get('customer/has_session',  ['uses' => 'CustomerController@hasSession']);
+	$app->get('customer/get_session_data',  ['uses' => 'CustomerController@getCustomerFromSession']);
+});
