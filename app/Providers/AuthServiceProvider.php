@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
 
             if ((!empty($token) AND isset($tokenIsValid)) OR $request->session()->has('user_id')) {
                 
-                if ($request->session()->has('user_id')) {
+                if ($request->session()->has('user_id') AND $request->session()->has('redirect_uri')) {
 
                     return new User($request->session()->get('user_id'));
                 

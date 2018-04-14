@@ -6,14 +6,15 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-success">
                 <div class="panel-heading"><strong>Login</strong></div>
+                <div class="panel-body">
                 @if ($error)
                     <div class="row">
-                        <span class="alert alert-danger  alert-dismissible">
+                        <div class="alert alert-danger center-block" style="width: 65%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             <strong>{{ $error }}</strong>
-                        </span>
+                        </div>
                     </div>
                 @endif
-                <div class="panel-body">
+                <div class="row">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('sign_in') }}">
                         
                         <div class="form-group">
@@ -44,6 +45,7 @@
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

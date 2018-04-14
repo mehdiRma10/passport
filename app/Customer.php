@@ -38,7 +38,7 @@ class Customer
         'status'            => 'required|boolean',
         'approved'          => 'required|boolean',
         'safe'              => 'required|boolean',
-        'date_added'        => 'required|date'
+        'date_added'        => 'required|date',
     ];
 
     public function __construct($data)
@@ -56,27 +56,27 @@ class Customer
         $this->approved          = $data['approved'];
         $this->safe              = $data['safe'];
         $this->date_added        = $data['date_added'];
-        
+
         if (isset($data['address_id'], $data['token'], $data['customer_id'])) {
-            $this->customer_id   = $data['customer_id'];
-            $this->address_id    = $data['address_id'];
-            $this->token         = $data['token'];
+            $this->customer_id = $data['customer_id'];
+            $this->address_id  = $data['address_id'];
+            $this->token       = $data['token'];
         } else {
-            $this->address_id    = 0;
-            $this->token         = str_random(32);
+            $this->address_id = 0;
+            $this->token      = str_random(32);
         }
     }
 
-    static public function load($id)
+    public static function load($id)
     {
-        
+
         try {
             $customer = DB::table('oc_customer')->where('customer_id', $id)->first();
-            
+
         } catch (QueryException $e) {
             return false;
         }
-        
+
         if (empty($customer)) {
             return false;
         }
@@ -112,7 +112,7 @@ class Customer
             'approved'          => $this->approved,
             'safe'              => $this->safe,
             'token'             => $this->token,
-            'date_added'        => $this->date_added
+            'date_added'        => $this->date_added,
         ];
     }
 
@@ -136,7 +136,7 @@ class Customer
                 'approved'          => $this->approved,
                 'safe'              => $this->safe,
                 'token'             => $this->token,
-                'date_added'        => $this->date_added
+                'date_added'        => $this->date_added,
             ]);
 
             return true;
@@ -155,11 +155,30 @@ class Customer
             ->update(['address_id' => $this->address_id]);
     }
 
-    static function getIdByCredentials($email, $pass){
+    public static function getIdByCredentials($email, $pass)
+    {
         // Query taken from opencart login customer
         $customer = collect(DB::select("SELECT customer_id FROM oc_customer WHERE LOWER(email) = :email AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1(:pass))))) OR password = :md5pass) AND status = '1' AND approved = '1'", ['email' => $email, 'pass' => $pass, 'md5pass' => md5($pass)]))->first();
 
         $customerID = empty($customer->customer_id) ? false : $customer->customer_id;
         return $customerID;
+    }
+
+    public static function insertTokenRequest($customer_id, $boutique_id, $token)
+    {
+        DB::Connection('shoooping')->insert("insert into authorized_keys (customer_id, boutique_id, token) values (:customer_id, :boutique_id, :token) ON DUPLICATE KEY UPDATE token = :update_token", [
+            'customer_id'  => $customer_id,
+            'boutique_id'  => $boutique_id,
+            'token'        => $token,
+            'update_token' => $token,
+        ]);
+
+        return true;
+        try
+        {
+
+        } catch (QueryException $e) {
+            return false;
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PHPMailer\PHPMailer\PHPMailer;
+use Validator;
 
 class CustomerController extends Controller
 {
@@ -15,8 +16,9 @@ class CustomerController extends Controller
         // verify if connected / has session
     	if ($request->session()->has('customer_id')) {
     		// if has session redirect with token to get data
-    		$customer = Customer::load($request->get('customer_id'));
-        	return response()->json([$customer->toArray()], 200);
+    		$redirect = $this->getRedirectUri($request);
+        	return redirect($redirect);
+
     	} else {
     		// if it doesnt have a session show login page
     		$error = $request->session()->has('error') ? ['error' => $request->session()->get('error')] : ['error' => ''];
@@ -26,12 +28,19 @@ class CustomerController extends Controller
 
     public function signIn(Request $request)
     {
-    	$request->session()->flash('error', 'Task was successful!');
-        $customerId = Customer::getIdByCredentials($request->get('email'), $request->get('password'));
-        
-        if ($customerId) {
-        	dd('authorized customer get him his token and redirect !!!');
+     	$validator = Validator::make($request->all(), ['email' => 'required|email|max:96','password' => 'required|max:32']);
+     	
+        $customerID = Customer::getIdByCredentials($request->get('email'), $request->get('password'));
+    	
+        if ($customerID AND !$validator->fails()) {
+        	$request->session()->put('customer_id', $customerID);
+        	$redirect = $this->getRedirectUri($request);
+        	
+        	return redirect($redirect);
+
         } else {
+
+    		$request->session()->flash('error', 'Wrong credentials');
         	return redirect('login');
         }
         
@@ -106,6 +115,20 @@ class CustomerController extends Controller
         	return response('', 401);
         }
         
+    }
+
+    private function getRedirectUri($request)
+    {
+    	$token = str_random(32);
+    	$redirect = $request->session()->get('redirect_uri') . '?token='. $token;
+    	
+    	$boutique_id = $request->session()->get('user_id');
+    	$isInserted = Customer::insertTokenRequest($request->session()->get('customer_id'), $boutique_id, $token);
+
+    	$request->session()->forget('user_id');
+    	$request->session()->forget('redirect_uri');
+    	
+    	return $redirect;
     }
 
     private function sendMailRegistration($receiverInfos)

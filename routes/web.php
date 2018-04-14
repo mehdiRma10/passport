@@ -11,9 +11,9 @@
 |
 */
 
-//$app->get('/', function () use ($app) {
-//    return View('test');
-//});
+$app->get('/', function () use ($app) {
+    return View('welcome');
+});
 
 $app->group(['middleware' => 'auth'], function($app) {
   	$app->get('login',  ['uses' => 'CustomerController@login']);
