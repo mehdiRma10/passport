@@ -154,4 +154,12 @@ class Customer
             ->where('customer_id', $this->customer_id)
             ->update(['address_id' => $this->address_id]);
     }
+
+    static function getIdByCredentials($email, $pass){
+        // Query taken from opencart login customer
+        $customer = collect(DB::select("SELECT customer_id FROM oc_customer WHERE LOWER(email) = :email AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1(:pass))))) OR password = :md5pass) AND status = '1' AND approved = '1'", ['email' => $email, 'pass' => $pass, 'md5pass' => md5($pass)]))->first();
+
+        $customerID = empty($customer->customer_id) ? false : $customer->customer_id;
+        return $customerID;
+    }
 }

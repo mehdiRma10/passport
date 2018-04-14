@@ -33,11 +33,25 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) {
             
-            $token = $request->header('api-token');
-            $tokenIsValid = DB::Connection('shoooping')->table('shoooping_tokens')->select(['id'])->where('keys', $token)->first();
-            
-            if (!empty($token) AND isset($tokenIsValid)) {
-                return new User($tokenIsValid->id);
+            $token = (!empty($request->get('api_token'))) ? $request->get('api_token') : $request->header('api-token');
+            $redirect_uri = urldecode($request->get('redirect_uri'));
+
+            $tokenIsValid = collect(DB::Connection('shoooping')->select("SELECT id FROM shoooping_tokens WHERE md5(SUBSTRING(`keys`, 1, 32)) = :token LIMIT 1",['token' => $token]))->first();
+
+            if ((!empty($token) AND isset($tokenIsValid)) OR $request->session()->has('user_id')) {
+                
+                if ($request->session()->has('user_id')) {
+
+                    return new User($request->session()->get('user_id'));
+                
+                }else {
+                    
+                    $request->session()->put('user_id', $tokenIsValid->id);
+                    $request->session()->put('redirect_uri', $redirect_uri);
+                    
+                    return new User($tokenIsValid->id);
+                }
+
             }
 
             return null;

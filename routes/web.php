@@ -11,9 +11,15 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+//$app->get('/', function () use ($app) {
+//    return View('test');
+//});
+
+$app->group(['middleware' => 'auth'], function($app) {
+  	$app->get('login',  ['uses' => 'CustomerController@login']);
+	$app->post('sign_in',  ['as' => 'sign_in','uses' => 'CustomerController@signIn']);
 });
+
 
 $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 

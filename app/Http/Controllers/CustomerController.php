@@ -10,6 +10,33 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class CustomerController extends Controller
 {
+    public function login(Request $request)
+    {
+        // verify if connected / has session
+    	if ($request->session()->has('customer_id')) {
+    		// if has session redirect with token to get data
+    		$customer = Customer::load($request->get('customer_id'));
+        	return response()->json([$customer->toArray()], 200);
+    	} else {
+    		// if it doesnt have a session show login page
+    		$error = $request->session()->has('error') ? ['error' => $request->session()->get('error')] : ['error' => ''];
+    		return View('auth.login', $error);
+    	}
+    }
+
+    public function signIn(Request $request)
+    {
+    	$request->session()->flash('error', 'Task was successful!');
+        $customerId = Customer::getIdByCredentials($request->get('email'), $request->get('password'));
+        
+        if ($customerId) {
+        	dd('authorized customer get him his token and redirect !!!');
+        } else {
+        	return redirect('login');
+        }
+        
+    }
+
     public function createCustomer(Request $request)
     {
         $newCustomer = new Customer($request->get('customer'));
