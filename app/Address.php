@@ -67,8 +67,6 @@ class Address
     public function toArray()
     {
         return [
-            'address_id' => $this->address_id,
-            'customer_id' => $this->customer_id,
             'firstname'    => $this->firstname,
             'lastname'     => $this->lastname,
             'company'      => $this->company,
@@ -80,6 +78,23 @@ class Address
             'zone_id'      => $this->zone_id,
             'custom_field' => $this->custom_field,
         ];
+    }
+
+    public static function load($id)
+    {
+
+        try {
+            $address = DB::table('oc_address')->where('address_id', $id)->first();
+
+        } catch (QueryException $e) {
+            return false;
+        }
+
+        if (empty($address)) {
+            return false;
+        }
+
+        return new Address((array) $address);
     }
 
     public function save()

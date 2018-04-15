@@ -21,9 +21,8 @@ $app->group(['middleware' => 'auth'], function($app) {
 });
 
 
-$app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 
-  	$app->post('customer/create',  ['uses' => 'CustomerController@createCustomer']);
+$app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
   	
   	$app->post('customer/status',  ['uses' => 'CustomerController@customerExists']);
 
@@ -35,5 +34,6 @@ $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 $app->group(['prefix'=>'api', 'middleware' => 'BasicAuth'], function($app) {
 
   	$app->get('customer/infos',  ['uses' => 'CustomerController@getInfos']);
+  	$app->post('customer/create',  ['uses' => 'CustomerController@createCustomer']);
 
 });

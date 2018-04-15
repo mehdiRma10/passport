@@ -106,7 +106,6 @@ class Customer
             'fax'               => $this->fax,
             'password'          => $this->password,
             'salt'              => $this->salt,
-            'address_id'        => $this->address_id,
             'ip'                => $this->ip,
             'status'            => $this->status,
             'approved'          => $this->approved,
@@ -166,16 +165,16 @@ class Customer
 
     public static function insertTokenRequest($customer_id, $boutique_id, $token)
     {
-        DB::Connection('shoooping')->insert("insert into authorized_keys (customer_id, boutique_id, token) values (:customer_id, :boutique_id, :token) ON DUPLICATE KEY UPDATE token = :update_token", [
-            'customer_id'  => $customer_id,
-            'boutique_id'  => $boutique_id,
-            'token'        => $token,
-            'update_token' => $token,
-        ]);
 
-        return true;
         try
         {
+            DB::insert("insert into authorized_keys (customer_id, boutique_id, token) values (:customer_id, :boutique_id, :token) ON DUPLICATE KEY UPDATE token = :update_token", [
+                'customer_id'  => $customer_id,
+                'boutique_id'  => $boutique_id,
+                'token'        => $token,
+                'update_token' => $token,
+            ]);
+            return true;
 
         } catch (QueryException $e) {
             return false;

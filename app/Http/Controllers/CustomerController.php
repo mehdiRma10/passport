@@ -88,9 +88,20 @@ class CustomerController extends Controller
 
     public function getInfos(Request $request)
     {
-        $customer = Customer::load($request->get('customer_id'));
+        if (empty($request->header('Token-ps'))) {
+			return response()->json([], 400);	        
+        }
+        
+        $customerID = $this->getCustomerIdFromToken($request->header('Token-ps'));
+        
+        if ($customerID == false) {
+			return response()->json([], 404);	        
+        }
 
-        return response()->json([$customer->toArray()], 200);
+        $customer = Customer::load($customerID);
+        $address  = Address::load($customer->address_id);
+        
+        return response()->json(['customer' => $customer->toArray(),'address' => $address->toArray()], 200);
     }
 
     public function hasSession(Request $request)
@@ -120,7 +131,7 @@ class CustomerController extends Controller
     private function getRedirectUri($request)
     {
     	$token = str_random(32);
-    	$redirect = $request->session()->get('redirect_uri') . '?token='. $token;
+    	$redirect = $request->session()->get('redirect_uri') . '?token_ps='. $token;
     	
     	$boutique_id = $request->session()->get('user_id');
     	$isInserted = Customer::insertTokenRequest($request->session()->get('customer_id'), $boutique_id, $token);
@@ -129,6 +140,14 @@ class CustomerController extends Controller
     	$request->session()->forget('redirect_uri');
     	
     	return $redirect;
+    }
+
+    private function getCustomerIdFromToken($token_ps)
+    {
+		$customer = DB::table('authorized_keys')->where('token', $token_ps)->first();
+    	$res = empty($customer->customer_id) ? false : $customer->customer_id;
+
+    	return $res;
     }
 
     private function sendMailRegistration($receiverInfos)
