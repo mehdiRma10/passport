@@ -64,7 +64,7 @@ class CustomerController extends Controller
         }
 
         $newCustomer->updateAddressId($newAddress->address_id);
-        $this->sendMailRegistration($newCustomer->toArray(), $request->get('url_origin'));
+        $this->sendMailRegistration($newCustomer->toArray(), $request->get('shop_origin'), $request->get('center_origin'));
 
         return response()->json(['message' => 'good'], 201);
     }
@@ -150,8 +150,9 @@ class CustomerController extends Controller
     	return $res;
     }
 
-    private function sendMailRegistration($receiverInfos, $url_origin = '')
+    private function sendMailRegistration($receiverInfos, $shop_origin = '', $center_origin = '')
     {
+    	$center_origin = empty($center_origin) ? '' : urldecode($center_origin);
     	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     	
     	try {
@@ -164,8 +165,16 @@ class CustomerController extends Controller
     	    //Content
     	    $mail->isHTML(true); // Set email format to HTML
     	    $mail->Subject = "Votre Passeport Shopping a bien été créé";
-    	    $mail->Body    = "Successful registration!!  his is the HTML message body <b>in bold!</b> <a href=\"$url_origin\">$url_origin</a>";
-
+    	    $mail->Body    = "<p>&nbsp;</p>
+							<p><strong><img style=\"margin: 50px 100px 50px 100px;\" src=\"https://passeport.shopping/images/courriel.png\" alt=\"courriel passeport shopping\" width=\"410\" height=\"252\" /></strong></p>
+							<p><strong>Nous venons de vous cr&eacute;er un compte Passeport Shopping. </strong></p>
+							<p><strong>Qu&rsquo;est-ce qu&rsquo;un Passeport Shopping?</strong></p>
+							<p><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">Le Passeport Shopping c&rsquo;est un acc&egrave;s unique pour tous vos achats &agrave; travers le r&eacute;seau Shooopping, dont fait partie </span><span style=\"font-weight: 400;\"><a href=\"$center_origin\">$center_origin</a></span></a>&nbsp;<span style=\"font-weight: 400;\">. </span></p>
+							<p><span style=\"font-weight: 400;\">Vous reconna&icirc;trez la possibilit&eacute; d&rsquo;une connexion </span><strong>passeport.shooopping</strong><span style=\"font-weight: 400;\"> gr&acirc;ce &agrave; la </span><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">petite cl&eacute; verte&nbsp;:</span></p>
+							<p><span style=\"font-weight: 400;\">Vos acc&egrave;s ont &eacute;t&eacute; cr&eacute;&eacute;s gr&acirc;ce &agrave; votre dernier achat effectu&eacute; sur le r&eacute;seau.</span><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">Vous pourrez utiliser la m&ecirc;me adresse courriel ainsi que le mot de passe cr&eacute;er sur la boutique <a href=\"$shop_origin\">$shop_origin</a> pour tous vos prochains achats &agrave; travers le r&eacute;seau. </span></p>
+							<p><span style=\"font-weight: 400;\">Facilitez votre magasinage et utilisez votre compte </span><strong>Passeport Shopping</strong><span style=\"font-weight: 400;\"> pour effectuer tous vos achats plus rapidement. </span></p>
+							<p>&nbsp;</p>
+							<p><span style=\"font-weight: 400;\">L&rsquo;&eacute;quipe Passeport Shopping</span></p>";
     	    $mail->send();
     	    
     	    return true;
