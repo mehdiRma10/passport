@@ -40,7 +40,7 @@ class CustomerController extends Controller
 
         } else {
 
-    		$request->session()->flash('error', 'Wrong credentials');
+    		$request->session()->flash('error', "Oups… L’adresse courriel ou le mot de passe utilisé est erroné.");
         	return redirect('login');
         }
         
@@ -64,7 +64,7 @@ class CustomerController extends Controller
         }
 
         $newCustomer->updateAddressId($newAddress->address_id);
-        $this->sendMailRegistration($newCustomer->toArray());
+        $this->sendMailRegistration($newCustomer->toArray(), $request->get('url_origin'));
 
         return response()->json(['message' => 'good'], 201);
     }
@@ -150,20 +150,21 @@ class CustomerController extends Controller
     	return $res;
     }
 
-    private function sendMailRegistration($receiverInfos)
+    private function sendMailRegistration($receiverInfos, $url_origin = '')
     {
     	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     	
     	try {
+    	    $mail->CharSet = 'UTF-8';
     	    //Recipients
-    	    $mail->setFrom('equipe@passeport.shopping', 'passeport shopping');
+    	    $mail->setFrom('info@passeport.shopping', 'Passeport Shopping');
     	    $mail->addAddress($receiverInfos['email'], $receiverInfos['firstname'] .' ' .$receiverInfos['lastname']);     // Add a recipient
-    	    $mail->addReplyTo('equipe@passeport.shopping', 'Information');
+    	    $mail->addReplyTo('info@passeport.shopping', 'Information');
 
     	    //Content
-    	    $mail->isHTML(true);                                  // Set email format to HTML
-    	    $mail->Subject = 'Here is the subject';
-    	    $mail->Body    = 'Successful registration!!  his is the HTML message body <b>in bold!</b>';
+    	    $mail->isHTML(true); // Set email format to HTML
+    	    $mail->Subject = "Votre Passeport Shopping a bien été créé";
+    	    $mail->Body    = "Successful registration!!  his is the HTML message body <b>in bold!</b> <a href=\"$url_origin\">$url_origin</a>";
 
     	    $mail->send();
     	    
