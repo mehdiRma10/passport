@@ -40,7 +40,7 @@ class CustomerController extends Controller
 
         } else {
 
-    		$request->session()->flash('error', "Oups… L’adresse courriel ou le mot de passe utilisé est erroné.");
+    		$request->session()->flash('error', " *Oups… L’adresse courriel ou le mot de passe utilisé est erroné");
         	return redirect('login');
         }
         
