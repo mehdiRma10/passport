@@ -22,8 +22,8 @@ class Address
     public $custom_field;
 
     private $rules = [
-        "firstname"    => 'required|string|max:32',
-        "lastname"     => 'required|string|max:32',
+        "firstname"    => 'string|max:32',
+        "lastname"     => 'string|max:32',
         "company"      => 'nullable|string|max:32',
         "address_1"    => 'required|string|max:96',
         "address_2"    => 'nullable|string|max:96',

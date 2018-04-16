@@ -48,6 +48,7 @@ class AuthServiceProvider extends ServiceProvider
                     
                     $request->session()->put('user_id', $tokenIsValid->id);
                     $request->session()->put('redirect_uri', $redirect_uri);
+                    $request->session()->save();
                     
                     return new User($tokenIsValid->id);
                 }

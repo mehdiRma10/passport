@@ -11,6 +11,7 @@
                     <div class="row">
                         <div class="alert alert-danger center-block" style="width: 65%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             <strong>{{ $error }}</strong>
+                            <button type="button" class="close" data-dismiss="alert">×</button>
                         </div>
                     </div>
                 @endif
@@ -38,10 +39,11 @@
                                 <button type="submit" class="btn btn-success">
                                     Login
                                 </button>
-
+                                <!--
                                 <a class="btn btn-link" href="">
                                     Forgot Your Password?
                                 </a>
+                                -->
                             </div>
                         </div>
                     </form>
