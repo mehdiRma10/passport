@@ -17,7 +17,7 @@
 
 <style type="text/css">
     body{
-        background: url('../images/ps_fond.png') no-repeat center center fixed;
+        background: url('../images/ps_fond.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -33,7 +33,7 @@
     }
 
     #bg{
-        background:url('../images/ps_fond.png') no-repeat center center;
+        background:url('../images/ps_fond.jpg') no-repeat center center;
         height: 500px;
     }
 
