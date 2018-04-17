@@ -152,7 +152,6 @@ class CustomerController extends Controller
 
     private function sendMailRegistration($receiverInfos, $shop_origin = '', $center_origin = '')
     {
-    	$center_origin = empty($center_origin) ? '' : urldecode($center_origin);
     	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     	
     	try {
