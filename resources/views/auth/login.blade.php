@@ -19,7 +19,7 @@
                 <div class="panel-body">
                 @if ($error)
                     <div class="row">
-                        <div class="alert center-block" style="width: 80%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div class="alert center-block" style="width: 100%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             <strong style="color: #663aad !important">{{ $error }}</strong>
                             <button type="button" class="close" data-dismiss="alert">×</button>
                         </div>

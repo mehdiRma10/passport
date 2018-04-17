@@ -47,7 +47,7 @@
     input[type="email"], input[type="password"]
     {
         color : white;
-        font-family: 'comfortaa';
+        font-family: 'comfortaa' , cursive;
         font-size: 20px;    
         background: transparent !important;
         border: none !important;
