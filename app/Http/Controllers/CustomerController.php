@@ -152,7 +152,7 @@ class CustomerController extends Controller
 
     private function sendMailRegistration($receiverInfos, $shop_origin = '', $center_origin = '')
     {
-    	$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    	$mail = new PHPMailer(true);   // Passing `true` enables exceptions
     	
     	try {
     	    $mail->CharSet = 'UTF-8';
