@@ -12,7 +12,9 @@
                     </div>
                     <div class="row text-center">
                         <h1 >
-                            <font color="white">Connexion</font>
+                            <font color="white">Connectez-vous à votre <br>
+                                <bold style="font-weight: bold;">Passeport.shopping</bold> 
+                            </font>
                         </h1>
                     </div>
                 </div>

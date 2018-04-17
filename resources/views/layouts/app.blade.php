@@ -27,6 +27,11 @@
         font-size: 20px;    
     }
 
+    h1{
+        font-size: 50px;
+
+    }
+
     #bg{
         background:url('../images/ps_fond.png') no-repeat center center;
         height: 500px;
