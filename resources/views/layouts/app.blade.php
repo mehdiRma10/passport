@@ -8,7 +8,7 @@
 
     <title>@yield('title') | passeport  shopping</title>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=comfortaa">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Scripts -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -23,7 +23,7 @@
         -o-background-size: cover;
         background-size: cover;
         margin-top: 12%;
-        font-family: 'comfortaa';
+        font-family: 'comfortaa' , cursive;
         font-size: 20px;    
     }
 
@@ -59,6 +59,7 @@
     .btn-round-lg{
         border-radius: 22.5px;
         background-color: #663aad !important;
+
     }
     
     .btn-round{
