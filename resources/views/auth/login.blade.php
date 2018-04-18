@@ -2,6 +2,37 @@
 
 @section('content')
 @section('title', 'login')
+<style>
+@media only screen and (min-width: 768px) {
+    h1{
+        font-size: 50px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    h1{
+        font-size: 8vw;
+    }
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    h1{
+        font-size: 8vw;
+    }
+}
+input[type="email"], input[type="password"]
+    {
+        color : white;
+        font-family: 'comfortaa' , cursive;
+        font-size: 20px;    
+        background: transparent !important;
+        border: none !important;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: 0 3px 2px -2px white !important;
+	-webkit-appearance: none;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -13,7 +44,7 @@
                     <div class="row text-center">
                         <h1 >
                             <font color="white">Connectez-vous à votre <br>
-                                <bold style="font-weight: bold;">Passeport.shopping</bold> 
+                                <bold style="font-weight: bold; padding-right: 15px;">Passeport.shopping</bold> 
                             </font>
                         </h1>
                     </div>
