@@ -2,37 +2,6 @@
 
 @section('content')
 @section('title', 'login')
-<style>
-@media only screen and (min-width: 768px) {
-    h1{
-        font-size: 50px;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    h1{
-        font-size: 8vw;
-    }
-}
-
-@media only screen and (max-width: 767px) and (orientation: portrait) {
-    h1{
-        font-size: 8vw;
-    }
-}
-input[type="email"], input[type="password"]
-    {
-        color : white;
-        font-family: 'comfortaa' , cursive;
-        font-size: 20px;    
-        background: transparent !important;
-        border: none !important;
-        -webkit-box-shadow: none !important;
-        -moz-box-shadow: none !important;
-        box-shadow: 0 3px 2px -2px white !important;
-	-webkit-appearance: none;
-    }
-</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -59,7 +28,7 @@ input[type="email"], input[type="password"]
                     </div>
                 @endif
                 <div class="row">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('sign_in') }}">
+                    <form id="form_sign_in" class="form-horizontal" role="form" method="POST" action="{{ route('sign_in') }}">
                         
                         <div class="form-group center-block">
                             <label for="email" class="col-md-4 control-label"><font color="white">Adresse courriel</font></label>
@@ -76,24 +45,57 @@ input[type="email"], input[type="password"]
                                 <input id="password" type="password" class="form-control" name="password" required>
                             </div>
                         </div>
+                        
+                        <div class="col-md-6 col-md-offset-4 text-right" >        
+                            <font id="email_reset" color="white" class="txt">Mot de passe oublié?</font>
+                        </div>
 
                         <div class="form-group" >
                             <div class="col-md-6 col-md-offset-3" style="margin-top:50px;">
                                 <button type="submit" class="btn btn-round-lg btn-lg center-block" >
                                     <font color="white">Me connecter</font> 
                                 </button>
-                                <!--
-                                <a class="btn btn-link" href="">
-                                    Mot de passe oublié?
-                                </a>
-                                -->
                             </div>
                         </div>
                     </form>
-                    </div>
+                </div>
+                <form id="form_email_reset" class="form-horizontal" role="form" method="POST" action="{{ route('email_reset_link') }}" style="display:none">
+                        <div class="form-group center-block">
+                            <label for="password" class="col-md-4 control-label"><font color="white">Adresse courriel</font></label>
+
+                            <div class="col-md-6">
+                                <input id="email_reset" type="email" class="form-control" name="email_reset" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-md-offset-4 text-right" >        
+                            <font id="sign_in_back" color="white" class="txt"><i class="fa fa-arrow-left"></i></font>
+                        </div>
+                        
+                        <div class="form-group" >
+                            <div class="col-md-6 col-md-offset-3" style="margin-top:50px;">
+                                <button type="submit" class="btn btn-round-lg btn-lg center-block" >
+                                    <font color="white">Envoyer</font> 
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    
+    $( "#email_reset" ).click(function() {
+      $("#form_sign_in").hide( "slow");
+      $("#form_email_reset").show( "slow");
+    });
+
+    $( "#sign_in_back" ).click(function() {
+      $("#form_email_reset").hide( "slow");
+      $("#form_sign_in").show( "slow");
+    });
+
+</script>
 @endsection

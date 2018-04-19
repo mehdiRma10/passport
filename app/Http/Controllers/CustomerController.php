@@ -69,21 +69,32 @@ class CustomerController extends Controller
         return response()->json(['message' => 'good'], 201);
     }
 
-    public function customerExists(Request $request)
+
+/*
+	TODO 
+	finish send email with link to reset pass
+*/
+
+    public function sendRestLink(Request $request)
     {
         $this->validate($request, ['email' => 'required|email']);
-        $idClient = DB::table('oc_customer')
+        
+        $validator = Validator::make($request->all(), ['email' => 'required|email|max:96','password' => 'required|max:32']);
+     	
+        $customerID = DB::table('oc_customer')
             ->select(['customer_id'])
             ->where('email', $request->get('email'))
             ->first();
 
-        if (!empty($idClient)) {
-            $response = response(1, 200);
+        if ($customerID AND !$validator->fails()) {
+			$request->session()->flash('error', " *Oups… L’adresse courriel ou le mot de passe utilisé est erroné");        
         } else {
-            $response = response(0, 404);
-        }
 
-        return $response;
+    		$request->session()->flash('error', " *Oups… L’adresse courriel ou le mot de passe utilisé est erroné");
+        }    
+    	
+    	return redirect('login');
+        
     }
 
     public function getInfos(Request $request)

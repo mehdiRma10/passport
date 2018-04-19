@@ -17,14 +17,15 @@ $app->get('/', function () use ($app) {
 
 $app->group(['middleware' => 'auth'], function($app) {
   	$app->get('login',  ['uses' => 'CustomerController@login']);
+
+	$app->post('email_reset_link',  ['as' => 'email_reset_link','uses' => 'CustomerController@sendRestLink']);
+
 	$app->post('sign_in',  ['as' => 'sign_in','uses' => 'CustomerController@signIn']);
 });
 
 
 
 $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
-  	
-  	$app->post('customer/status',  ['uses' => 'CustomerController@customerExists']);
 
 	$app->get('customer/has_session',  ['uses' => 'CustomerController@hasSession']);
 	$app->get('customer/get_session_data',  ['uses' => 'CustomerController@getCustomerFromSession']);
