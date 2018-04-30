@@ -20,23 +20,39 @@
                 </div>
                 <div class="panel-body">
                 <div class="row">
-                    <form id="form_sign_in" class="form-horizontal" role="form" method="POST" action="{{ route('sign_in') }}">
+                    <form  class="form-horizontal" role="form" method="POST" action="{{ route('reset_pass') }}">
 
-                        <div class="form-group center-block">
+                        <div class="form-group required center-block">
                             <label for="password" class="col-md-4 control-label"><font color="white">Nouveau mdp</font></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password_1" type="password" class="form-control" name="password_1" required>
                             </div>
                         </div>
+                        @if ($error_1)
+                            <div class="row">
+                                <div class="alert center-block" style="width: 100%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    <strong style="color: #663aad !important">{{ $error_1 }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            </div>
+                        @endif
 
-                        <div class="form-group center-block">
+                        <div class="form-group required center-block">
                             <label for="password" class="col-md-4 control-label"><font color="white">Confirmer mdp</font></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password_2" type="password" class="form-control" name="password_2" required>
                             </div>
                         </div>
+                        @if ($error_2)
+                            <div class="row">
+                                <div class="alert center-block" style="width: 100%;" role="alert"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    <strong style="color: #663aad !important">{{ $error_2 }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+                            </div>
+                        @endif
                         
                         <div class="form-group" >
                             <div class="col-md-6 col-md-offset-3" style="margin-top:50px;">

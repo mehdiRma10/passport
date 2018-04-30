@@ -87,7 +87,7 @@ finish send email with link to reset pass
             $request->session()->flash('error', " *Oh… L’adresse courriel est erronée");
         } else {
             $this->sendResetLink($request->get('email_reset'));
-            $request->session()->flash('error', "yeaaah email was sent");
+            $request->session()->flash('error', "un email a été envoyé a votre adresse");
         }
 
         return redirect('login');

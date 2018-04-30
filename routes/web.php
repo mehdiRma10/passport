@@ -23,7 +23,8 @@ $app->group(['middleware' => 'auth'], function($app) {
 	$app->post('sign_in',  ['as' => 'sign_in','uses' => 'CustomerController@signIn']);
 });
 
-$app->get('reset_pass/{token}',  ['as' => 'reset_pass','uses' => 'ResetPasswordController@Page']);
+$app->get('reset_pass/{token}',  ['uses' => 'ResetPasswordController@page']);
+$app->post('reset_pass',  ['as' => 'reset_pass','uses' => 'ResetPasswordController@resetPass']);
 
 $app->group(['prefix'=>'api', 'middleware' => 'auth'], function($app) {
 
