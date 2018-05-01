@@ -48,7 +48,12 @@ class ResetPasswordController extends Controller
             return View('auth.passwords.reset', $error);
         }
 
-        $this->dbPwRest($request->session()->get('email_reset'), $request->get('password_1'));
+        if ($this->dbPwRest($request->session()->get('email_reset'), $request->get('password_1'))) {
+            $this->deletePwResetToken($request->session()->get('email_reset'));
+            $request->session()->flush();
+        }
+
+
         $message = ['message' => 'Votre mot de passe a été modifié avec succès'];
         return View('auth.passwords.success', $message);
     }
@@ -63,6 +68,20 @@ class ResetPasswordController extends Controller
             DB::table('oc_customer')
                 ->where('email', $email)
                 ->update(['password' => md5($pw)]);
+            return true;
+        } catch (QueryException $e) {
+            return false;
+        }
+    }
+
+    /*
+    TODO
+        add this function to customer object
+     */
+    private function deletePwResetToken($email){
+        
+        try{
+            DB::table('reset_pass')->where('email', $email)->delete();
             return true;
         } catch (QueryException $e) {
             return false;
