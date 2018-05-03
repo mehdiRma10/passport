@@ -26,6 +26,15 @@ class CustomerController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        // destroy session 
+        $request->session()->flush();
+        // if has session redirect with token to get data
+        $redirect = $this->getRedirectUri($request);
+        return redirect($redirect);
+    }
+
     public function signIn(Request $request)
     {
         $validator = Validator::make($request->all(), ['email' => 'required|email|max:96', 'password' => 'required|max:32']);
