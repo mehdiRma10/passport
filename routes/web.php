@@ -17,6 +17,7 @@ $app->get('/', function () use ($app) {
 
 $app->group(['middleware' => 'auth'], function($app) {
   	$app->get('login',  ['uses' => 'CustomerController@login']);
+  	$app->get('logout',  ['uses' => 'CustomerController@logout']);
 
 	$app->post('email_reset_link',  ['as' => 'email_reset_link','uses' => 'CustomerController@sendRestLink']);
 
