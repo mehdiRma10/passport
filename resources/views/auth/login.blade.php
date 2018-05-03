@@ -57,16 +57,25 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-		    <div class="row text-center">
-                        <p style="font-size: 16px; margin: 20px 0px 10px;">
-                            <font color="white">Le Passeport Shopping vous permet une connexion unique <br /> à travers toutes les boutiques du réseau Shooopping. Il vous permet <br /> d’effectuer vos transactions plus rapidement et en toute sécurité.</font>
+			<div class="row text-center">
+                        <p style="font-size: 13px; margin: 40px 0px 10px; line-height: 16px;">
+                            <font color="white">Le Passeport Shopping vous permet une connexion unique à travers toutes les boutiques de notre réseau de centres d’achat en ligne incluant <a href="http://monpanier.ca" target="_blank"></a>MonPanier.ca</font>
                         </p>
-			<p style="font-size: 16px; margin: 20px 0px 10px;" >
-			    <font color="white">Le Passeport Shopping vous évitera les dizaines de comptes et les dizaines de mots de passe!</font>
-			</p>
+                        <p style="font-size: 13px; margin: 17px 0px 10px; line-height: 16px;" >
+                            <font color="white">Il vous permet d’effectuer vos transactions plus rapidement, en toute sécurité, et vous évite les dizaines de comptes et mots de passe!</font>
+                        </p>
+                        <p style="font-size: 16px; margin: 30px 0px 10px; line-height: 16px;" >
+                            <font color="white"><strong>Pas de Passeport Shopping?</strong></font>
+                        </p>
+                        <p style="font-size: 13px; margin: 20px 0px 10px; line-height: 16px;" >
+                            <font color="white">Il suffit de vous créer un compte client chez un marchand de notre réseau. Votre Passeport Shopping sera créé automatiquement et une confirmation vous sera envoyée par courriel.</font>
+                        </p>
                     </div>
                 </div>
+
+                    </form>
+                </div>
+		
                 <form id="form_email_reset" class="form-horizontal" role="form" method="POST" action="{{ route('email_reset_link') }}" style="display:none">
                         <div class="form-group center-block">
                             <label for="password" class="col-md-4 control-label"><font color="white">Adresse courriel</font></label>
