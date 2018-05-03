@@ -58,6 +58,14 @@
                             </div>
                         </div>
                     </form>
+		    <div class="row text-center">
+                        <p style="font-size: 16px; margin: 20px 0px 10px;">
+                            <font color="white">Le Passeport Shopping vous permet une connexion unique <br /> à travers toutes les boutiques du réseau Shooopping. Il vous permet <br /> d’effectuer vos transactions plus rapidement et en toute sécurité.</font>
+                        </p>
+			<p style="font-size: 16px; margin: 20px 0px 10px;" >
+			    <font color="white">Le Passeport Shopping vous évitera les dizaines de comptes et les dizaines de mots de passe!</font>
+			</p>
+                    </div>
                 </div>
                 <form id="form_email_reset" class="form-horizontal" role="form" method="POST" action="{{ route('email_reset_link') }}" style="display:none">
                         <div class="form-group center-block">
