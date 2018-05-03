@@ -23,7 +23,7 @@
                     <form  class="form-horizontal" role="form" method="POST" action="{{ route('reset_pass') }}">
 
                         <div class="form-group required center-block">
-                            <label for="password" class="col-md-4 control-label"><font color="white">Nouveau mdp</font></label>
+                            <label for="password" class="col-md-4 control-label"><font color="white">Nouveau mot de passe</font></label>
 
                             <div class="col-md-6">
                                 <input id="password_1" type="password" class="form-control" name="password_1" required>
@@ -39,7 +39,7 @@
                         @endif
 
                         <div class="form-group required center-block">
-                            <label for="password" class="col-md-4 control-label"><font color="white">Confirmer mdp</font></label>
+                            <label for="password" class="col-md-4 control-label"><font color="white">Confirmer le  mot de passe</font></label>
 
                             <div class="col-md-6">
                                 <input id="password_2" type="password" class="form-control" name="password_2" required>

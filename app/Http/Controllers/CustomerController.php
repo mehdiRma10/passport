@@ -172,14 +172,13 @@ finish send email with link to reset pass
             $mail->addReplyTo('info@passeport.shopping', 'Information');
             //Content
             $mail->isHTML(true); // Set email format to HTML
-            $mail->Subject = "Reset pass!!!";
+            $mail->Subject = "Réinitialisation de votre mot de passe – Passeport Shopping";
             $mail->Body    = "<p>&nbsp;</p>
                             <p><strong><img style=\"margin: 50px 100px 50px 100px;\" src=\"https://passeport.shopping/images/courriel.png\" alt=\"courriel passeport shopping\" width=\"410\" height=\"252\" /></strong></p>
-                            <p><strong>Nous venons de vous cr&eacute;er un compte Passeport Shopping. </strong></p>
-                            <p><strong>Qu&rsquo;est-ce qu&rsquo;un Passeport Shopping?</strong></p>
-                            <p><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">Réinitialiser votre mdp en suivant ce lien </span><span style=\"font-weight: 400;\"><a href=\"$link\">Réinitialiser ici</a></span></a>&nbsp;<span style=\"font-weight: 400;\">. </span></p>
-                            <p><span style=\"font-weight: 400;\">Vous reconna&icirc;trez la possibilit&eacute; d&rsquo;une connexion </span><strong>passeport.shooopping</strong><span style=\"font-weight: 400;\"> gr&acirc;ce &agrave; la </span><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">petite cl&eacute; verte&nbsp;:</span></p><img src=\"https://passeport.shopping/images/ps_button.png\" max-height=\"42%\" max-width=\"42%\"/>
-                            <p><span style=\"font-weight: 400;\">Facilitez votre magasinage et utilisez votre compte </span><strong>Passeport Shopping</strong><span style=\"font-weight: 400;\"> pour effectuer tous vos achats plus rapidement. </span></p>
+                            <p>Bonjour,</p><br>
+                            <p>Vous avez demandé de réinitialiser le mot de passe de votre Passeport Shopping.
+                            Pour réinitialiser votre mot de passe, cliquez <span style=\"font-weight: 400;\"><a href=\"$link\">ici</a></span></a>&nbsp;<span style=\"font-weight: 400;\">. </span></p>
+                            <p><span style=\"font-weight: 400;\">S’il vous n’avez pas demandé la réinitialisation de votre mot de passe, veuillez simplement ignorer ce courriel.</span></p>
                             <p>&nbsp;</p>
                             <p><span style=\"font-weight: 400;\">L&rsquo;&eacute;quipe Passeport Shopping</span></p>";
             $mail->send();
