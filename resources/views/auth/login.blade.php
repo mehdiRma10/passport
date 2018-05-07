@@ -8,7 +8,8 @@
             <div class="panel-transparent">
                 <div class="panel-heading">
                     <div class="row  text-center">
-                            <i class="fas fa-key" style="color: white;font-size: 48px;"></i>
+<!--                          <i class="fas fa-key" style="color: white;font-size: 48px;"></i> -->
+			      <img src="https://www.votresite.ca/images/cle-transparente.png" alt="Passeport shooopping">
                     </div>
                     <div class="row text-center">
                         <h1 >
@@ -59,7 +60,7 @@
                         </div>
 			<div class="row text-center">
                         <p style="font-size: 13px; margin: 40px 0px 10px; line-height: 16px;">
-                            <font color="white">Le Passeport Shopping vous permet une connexion unique à travers toutes les boutiques de notre réseau de centres d’achat en ligne incluant <a href="http://monpanier.ca" target="_blank"></a>MonPanier.ca</font>
+                            <font color="white">Le Passeport Shopping vous permet une connexion unique à travers toutes les boutiques de notre réseau de centres d’achats en ligne incluant <a href="https://monpanier.ca" target="_blank"></a>MonPanier.ca</font>
                         </p>
                         <p style="font-size: 13px; margin: 17px 0px 10px; line-height: 16px;" >
                             <font color="white">Il vous permet d’effectuer vos transactions plus rapidement, en toute sécurité, et vous évite les dizaines de comptes et mots de passe!</font>

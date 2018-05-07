@@ -31,7 +31,7 @@ class CustomerController extends Controller
         // destroy session 
         $request->session()->flush();
         // if has session redirect with token to get data
-        $redirect = $request->get('redirect_uri');
+        $redirect = $request->get('redirect_uri') . '?is_out=yes';
         return redirect($redirect);
     }
 
